@@ -29,9 +29,9 @@ Only when the row is `listed`, the buyer is a different Antelope-shaped name, ev
 
 | Piece | Role |
 | --- | --- |
-| `examples/sales.ts` | `visibleSales`, `buyPreview`, fixtures |
-| `examples/sales.test.ts` | Order, string id, refusals |
-| `examples/Demo.tsx` | Filter plus the unsigned action list |
+| `src/sales.ts` | `visibleSales`, `buyPreview`, fixtures |
+| `src/sales.test.ts` | Order, string id, refusals |
+| `src/Demo.tsx` | Filter plus the unsigned action list |
 
 ## Edge cases
 
@@ -55,6 +55,13 @@ The action names are WAX AtomicMarket (`atomicmarket`) as documented by the cont
 
 - [wax-drops-and-pack-opening-experience](https://github.com/pixel-journey/wax-drops-and-pack-opening-experience) — a different Atomic purchase shape
 - [wax-fifo-cost-basis-calculator](https://github.com/pixel-journey/wax-fifo-cost-basis-calculator) — what a filled sale might mean later, still not tax advice
+
+
+## Queries and unsigned transactions
+
+`src/api.ts` builds the HTTP requests. `src/usecases.ts` is the worked case for this repo: those requests, and the unsigned transaction when the feature actually has an action. `executed` is false. Nothing is sent.
+
+The engines used to sit in `examples/`. GitHub treats that directory as documentation, so the language bar showed the stylesheet and almost none of the TypeScript.
 
 ## Run
 

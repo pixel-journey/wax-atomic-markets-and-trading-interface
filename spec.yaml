@@ -11,15 +11,15 @@ invariants:
   - transfer memo is deposit and quantity equals the listing price text.
   - intended_delphi_median is the string 0.
   - A USD price, a sold sale, and a self-buy are refused.
-  - examples/sales.ts performs no network or wallet calls.
+  - src/sales.ts performs no network or wallet calls.
 do_not:
   - Do not coerce sale ids or asset ids with Number.
   - Do not preview a Delphi pair by setting the median to 0.
   - Do not describe the preview as a submitted transaction.
 entrypoints:
-  logic: examples/sales.ts
-  tests: examples/sales.test.ts
-  demo: examples/Demo.tsx
+  logic: src/sales.ts
+  tests: src/sales.test.ts
+  demo: src/Demo.tsx
 commands:
   test: npm test
   demo: npm run dev
