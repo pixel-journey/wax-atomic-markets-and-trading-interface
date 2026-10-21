@@ -1,0 +1,28 @@
+name: wax-atomic-markets-and-trading-interface
+trust_label: educational-reference
+version: 0.1.0
+purpose: >
+  Filter fixture AtomicMarket-shaped rows and preview a direct WAX purchase.
+  Nothing is broadcast.
+invariants:
+  - Listed fixtures sort as sale 42, then 9007199254740993, then the USD row.
+  - A successful preview is assertsale, transfer, purchasesale.
+  - sale_id in purchasesale is the original string.
+  - transfer memo is deposit and quantity equals the listing price text.
+  - intended_delphi_median is the string 0.
+  - A USD price, a sold sale, and a self-buy are refused.
+  - examples/sales.ts performs no network or wallet calls.
+do_not:
+  - Do not coerce sale ids or asset ids with Number.
+  - Do not preview a Delphi pair by setting the median to 0.
+  - Do not describe the preview as a submitted transaction.
+entrypoints:
+  logic: examples/sales.ts
+  tests: examples/sales.test.ts
+  demo: examples/Demo.tsx
+commands:
+  test: npm test
+  demo: npm run dev
+live_data:
+  status: untested
+  notes: Action names come from public AtomicMarket docs. No node call in this pass.
