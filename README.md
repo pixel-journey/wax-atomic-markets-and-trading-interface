@@ -35,6 +35,8 @@ From the [v2.0.0 release](https://github.com/atomicassets/atomicmarket-contract/
 - The collection fee is read live at settlement, capped, and the listing's stored fee is informational. The buyer still pays the listed price. This preview does not compute that split.
 - Custodial rentals are not in v2. Do not teach `announcerent`.
 
+`createbuyo` is still not built here. `previewCreateBuyo` and AtomicAssets `createoffer` (several ids allowed, self-offer refused, shape only) live in `wax-atomicassets-v2-action-previews`. Do not treat this sale preview as that offer.
+
 ## What is actually in the repo
 
 | Piece | Role |
