@@ -27,6 +27,12 @@ describe("buyPreview", () => {
     expect(preview.notes[0]).toBe("Not broadcast.");
   });
 
+  it("refuses a v1 bundle listing", () => {
+    const bundle = buyPreview(cheap, "buyeracct");
+    expect(bundle.ok).toBe(false);
+    if (!bundle.ok) expect(bundle.reason).toMatch(/exactly one asset/);
+  });
+
   it("refuses a sold sale, a self-buy, a non-WAX price, and a bad name", () => {
     expect(buyPreview(sold, "buyeracct").ok).toBe(false);
     expect(buyPreview(cheap, "bob.wam").ok).toBe(false);

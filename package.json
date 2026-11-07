@@ -2,7 +2,7 @@
   "name": "wax-atomic-markets-and-trading-interface",
   "version": "0.1.0",
   "private": true,
-  "description": "AtomicMarket direct-sale preview. Delphi pairs are refused.",
+  "description": "AtomicMarket v2 single-asset direct-WAX preview. Bundles and Delphi pairs are refused.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

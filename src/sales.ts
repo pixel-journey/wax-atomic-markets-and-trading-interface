@@ -1,5 +1,6 @@
 /**
  * Fixture sale rows and an unsigned direct-WAX purchase preview.
+ * AtomicMarket v2: one asset per listing. A second asset id is refused.
  * Action names follow public AtomicMarket docs. This file does not broadcast.
  */
 
@@ -65,8 +66,12 @@ export function buyPreview(sale: SaleRow, buyer: string, takerMarketplace = ""):
   if (!UINT.test(sale.saleId)) return { ok: false, reason: "sale id must be a decimal string, not a number" };
   if (sale.state !== "listed") return { ok: false, reason: `sale is ${sale.state}. Only a listed sale can be previewed.` };
   if (buyer === sale.seller) return { ok: false, reason: "buyer and seller are the same account" };
-  if (sale.assetIds.length === 0 || sale.assetIds.some((id) => !UINT.test(id))) {
-    return { ok: false, reason: "asset ids must be non-empty decimal strings" };
+  if (sale.assetIds.length !== 1 || sale.assetIds.some((id) => !UINT.test(id))) {
+    return {
+      ok: false,
+      reason:
+        "AtomicMarket v2 lists exactly one asset. A second id is a v1 bundle and is not previewed. Asset ids must be decimal strings.",
+    };
   }
   if (!WAX_PRICE.test(sale.listingPrice)) {
     return {

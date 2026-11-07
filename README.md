@@ -21,9 +21,19 @@ Only when the row is `listed`, the buyer is a different Antelope-shaped name, ev
 
 - Sold, cancelled, or unknown.
 - Buyer equals seller.
+- More than one asset id. AtomicMarket v2 listings are single-asset. Fixture sale `42` (`1001` and `1002`) is a v1 bundle and `buyPreview` refuses it for any buyer who is not already refused as a self-buy. Legacy bundle rows cancel when touched; this preview does not build that cancel.
 - A price that is not 8-decimal WAX. A USD fixture is there so the refusal is visible. Delphi pairs are not guessed.
 - Names that are not Antelope account shaped.
 - A sale id or asset id run through `Number`.
+
+## AtomicMarket v2 (2026-08-03)
+
+From the [v2.0.0 release](https://github.com/atomicassets/atomicmarket-contract/releases/tag/v2.0.0), not re-executed against a node by this repo:
+
+- A sale, auction, or buy offer is exactly one asset. `announcesale` rejects more than one.
+- A pre-v2 row that still holds several assets cancels when it is touched. The buyer of a bundle sale is charged nothing.
+- The collection fee is read live at settlement, capped, and the listing's stored fee is informational. The buyer still pays the listed price. This preview does not compute that split.
+- Custodial rentals are not in v2. Do not teach `announcerent`.
 
 ## What is actually in the repo
 
