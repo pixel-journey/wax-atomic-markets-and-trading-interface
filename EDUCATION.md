@@ -36,10 +36,17 @@ npm test
 
 `previewCancelAuction` refuses a one-asset auction that already has a bid. A legacy bundle is invalid, so a non-seller may cancel it.
 
-Claims (`auctclaimbuy`, `auctclaimsel`) are not built. The collection fee split stays in [wax-atomic-collection-config-visualizer](https://github.com/pixel-journey/wax-atomic-collection-config-visualizer).
+## Claims
+
+`previewClaimAuction` is `auctclaimbuy` and `auctclaimsel`. The auction is finished only when `endTime < now`. The same second is not finished. A buyer claim before the end sees that string. A seller claim checks the end before it checks for a bid.
+
+The buyer receives the asset with memo `AtomicMarket Won Auction - ID # 7` (space before the number). The seller call does not move the asset. It calls `internal_payout_sale` and the memo is `AtomicMarket Auction Payout - ID #7` (no space). The fee numbers are the settlement split in [wax-atomic-collection-config-visualizer](https://github.com/pixel-journey/wax-atomic-collection-config-visualizer). They are not recomputed here.
+
+The first claim marks the row. The second erases it. A legacy bundle that neither side has claimed is dissolved instead: the memo is `AtomicMarket Dissolved Legacy Bundle Auction - ID # 7`, and the row is erased. No balance is moved by this preview.
+
+`require_auth` has no custom string. A seller who is not the seller fails with `require_auth` before "not active". A buyer who is not the bidder still sees "not active" or "no bids" first, because those checks come before the permission.
 
 ## What this course will not teach
 
-- A broadcast
-- The claim payout. Dissolving a legacy auction here does not refund a balance or return the asset.
+- A broadcast. The claim preview names the memo and whether the row is marked or erased. It does not transfer the asset or pay the seller.
 - `atomicdropsx::claimdrop`
