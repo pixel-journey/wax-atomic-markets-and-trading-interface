@@ -28,14 +28,14 @@ Only when the row is `listed`, the buyer is a different Antelope-shaped name, ev
 
 ## AtomicMarket v2 (2026-08-03)
 
-From the [v2.0.0 release](https://github.com/atomicassets/atomicmarket-contract/releases/tag/v2.0.0), not re-executed against a node by this repo:
+Opened in [atomicassets/atomicmarket-contract v2.0.0](https://github.com/atomicassets/atomicmarket-contract/tree/v2.0.0) `src/atomicmarket.cpp`. Not compiled. The course is [EDUCATION.md](./EDUCATION.md). `previewAnnounceSale`, `previewCreateBuyOffer`, and `previewPurchaseSale` lock the strings from that file.
 
-- A sale, auction, or buy offer is exactly one asset. `announcesale` rejects more than one.
-- A pre-v2 row that still holds several assets cancels when it is touched. The buyer of a bundle sale is charged nothing.
-- The collection fee is read live at settlement, capped, and the listing's stored fee is informational. The buyer still pays the listed price. This preview does not compute that split.
-- Custodial rentals are not in v2. Do not teach `announcerent`.
+- A sale and a buy offer must contain exactly one asset id. The message says to create one sale, or one buy offer, per asset inside a single transaction.
+- [pinknetworkx/atomicmarket-contract](https://github.com/pinknetworkx/atomicmarket-contract) `master` does not contain that check. Do not copy the bundle ban from it.
+- The collection fee is read live at settlement. The split is computed in [wax-atomic-collection-config-visualizer](https://github.com/pixel-journey/wax-atomic-collection-config-visualizer). This preview does not recompute it.
+- AtomicAssets `createoffer` still allows several ids. That is [wax-atomicassets-v2-action-previews](https://github.com/pixel-journey/wax-atomicassets-v2-action-previews). `createbuyo` is not that action.
 
-`createbuyo` is still not built here. `previewCreateBuyo` and AtomicAssets `createoffer` (several ids allowed, self-offer refused, shape only) live in `wax-atomicassets-v2-action-previews`. Do not treat this sale preview as that offer.
+`buyPreview` is still the unsigned three-action WAX purchase. It is not `createbuyo`.
 
 ## What is actually in the repo
 
