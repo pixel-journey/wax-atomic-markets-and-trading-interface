@@ -28,8 +28,18 @@ npm test
 
 `buyPreview` still refuses a second id and only builds `assertsale`, a `deposit` transfer, and `purchasesale` for an 8-decimal WAX price. It does not build `createbuyo`.
 
+## Auctions
+
+`previewAnnounceAuction` is the same one-asset rule, with the auction sentence (`one auction per asset`). A second announcement of the same asset names `cancelauct`. The starting bid must be greater than zero. The duration must sit inside the config minimum and maximum. Those two numbers are inputs. This file does not know the chain's current config.
+
+`previewAuctionBid` refuses your own auction, an auction whose asset has not been transferred to `atomicmarket` yet, a finished auction, a different symbol, a first bid under the floor, and a later bid under `current * (1 + minimumIncrease)`. That comparison is the contract's `double` multiply, so a raise that looks exact on paper can still fall short. A legacy row with more than one asset does not take the bid. It returns `action: "dissolve"`. If either side has already claimed, the string says to use the claim actions. No balance is refunded here.
+
+`previewCancelAuction` refuses a one-asset auction that already has a bid. A legacy bundle is invalid, so a non-seller may cancel it.
+
+Claims (`auctclaimbuy`, `auctclaimsel`) are not built. The collection fee split stays in [wax-atomic-collection-config-visualizer](https://github.com/pixel-journey/wax-atomic-collection-config-visualizer).
+
 ## What this course will not teach
 
 - A broadcast
-- That a pre-v2 bundle cancels when touched. The release said that. This file does not walk that branch.
+- The claim payout. Dissolving a legacy auction here does not refund a balance or return the asset.
 - `atomicdropsx::claimdrop`
